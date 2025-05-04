@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>D3.js Table Example</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .table-container {
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="table-container"></div>
+
+    <script>
+        // Sample data
+        const testData = [
+            { name: "Edit/Delete", mark: "3", justification: "user can delete and edit message after sending the message" , route: "localhost:3050/chat.php" },
+            { name: "Slang Sensitive", mark: "3", justification: "User cannot send slangs which is not acceptable in this chat.According to the slang List" , route: "localhost:3050/chat.php" },
+            { name: "Last seen/Active", mark: "3", justification: "User can see if he/she is  Active or not or when another user is last active " , route: "localhost:3050/chat.php" },
+            { name: "Enable Dark/Day Mode", mark: "3", justification: "User can change the dark and day mode which he/she prefer" , route: "localhost:3050/chat.php" },
+            { name: "Message Notification", mark: "3", justification: "User can see how many number of messages was sent to him/her on the side notification" , route: "localhost:3050/chat.php" },
+        ];
+
+        // Create table structure
+        const table = d3.select("#table-container")
+            .append("table")
+            .attr("class", "test-table");
+
+        // Create header row
+        table.append("thead")
+            .append("tr")
+            .selectAll("th")
+            .data(["Name", "Mark", "Justification for marking", "Internal Route"])
+            .enter()
+            .append("th")
+            .text(d => d);
+
+        // Create body rows
+        table.append("tbody")
+            .selectAll("tr")
+            .data(testData)
+            .enter()
+            .append("tr")
+            .selectAll("td")
+            .data(d => [d.name, d.mark, d.justification, d.route])
+            .enter()
+            .append("td")
+            .text(d => d);
+    </script>
+</body>
+</html>
